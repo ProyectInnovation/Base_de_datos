@@ -20,7 +20,7 @@ ejecutaServicio(function () {
     $render .=
       "<li>
      <p>
-      <a href='modifica.html?id=$id'>$nombre</a>
+      <a href='modifica.html?id=$id'>Videojuego: $nombre</a> - Genero: $genero - Plataforma: $plataforma
      </p>
     </li>";
   }
