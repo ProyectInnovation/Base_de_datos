@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Modificar</title>
+
+  <script src="js/registraServiceWorker.js"></script>
+
+  <meta name="viewport" content="width=device-width">
+  <meta name="theme-color" content="#fffbfe">
+  <link rel="icon" sizes="48x48" href="favicon.ico">
+  <link rel="manifest" href="site.webmanifest">
+  <script src="ungap/custom-elements.js"></script>
+
+  <script type="module" src="js/configura.js"></script>
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/transicion_pestanas.css">
+
+  <link rel="stylesheet" href="css/dark-hc.css">
+  <link rel="stylesheet" href="css/dark-mc.css">
+  <link rel="stylesheet" href="css/dark.css">
+  <link rel="stylesheet" href="css/light-hc.css">
+  <link rel="stylesheet" href="css/light-mc.css">
+  <link rel="stylesheet" href="css/light.css">
+
+
+  <script type="module" src="lib/js/consumeJson.js"></script>
+  <script type="module" src="lib/js/submitForm.js"></script>
+  <script type="module" src="lib/js/muestraObjeto.js"></script>
+  <script type="module" src="lib/js/muestraError.js"></script>
+
+  <script>
+    // Obtiene los parámetros de la página.
+    const params = new URL(location.href).searchParams
+  </script>
+
+</head>
+
+<body onload="if (params.size > 0) {
+   consumeJson('srv/videojuego.php?' + params)
+    .then(respuesta => muestraObjeto(forma, respuesta.body))
+    .catch(muestraError)
+  }">
+
+  <form id="forma" onsubmit="submitForm('srv/videojuego-modifica.php', event)
+    .then(respuesta => location.href = 'index.html')
+    .catch(muestraError)">
+
+    <md-top-app-bar><br>
+      <center>
+        <h1>Modificar Videojuego</h1>
+      </center>
+    </md-top-app-bar>
+
+    <main>
+      <p><button class="md-filled-button"><a href="index.html">Cancelar</a></button></p>
+
+      <input name="id" type="hidden">
+
+      <p>
+      <p>
+        <label class="md-filled-text-field">
+          <input required placeholder="Nombre del videojuego*" name="nombre">
+          <span>Nombre del videojuego *</span>
+          <small>Obligatorio</small>
+        </label>
+
+        <label class="md-filled-text-field">
+          <input required placeholder="Nombre del videojuego*" name="genero">
+          <span>Genero del videojuego *</span>
+          <small>Obligatorio</small>
+        </label>
+
+        <label class="md-filled-text-field">
+          <input required placeholder="Nombre del videojuego*" name="plataforma">
+          <span>Plataforma *</span>
+          <small>Obligatorio</small>
+        </label>
+      </p>
+      <p>
+
+        <button class="md-filled-button" type="submit">Guardar</button>
+
+        <button class="md-filled-button" type="button" onclick="
+     if (params.size > 0 && confirm('Confirma la eliminación')) {
+      consumeJson('srv/videojuego-elimina.php?' + params)
+       .then(() => location.href = 'index.html')
+       .catch(muestraError)
+     }">
+          Eliminar
+        </button>
+
+      </p>
+
+  </form>
+
+  </main>
+  <nav-drw id="nav"></nav-drw>
+
+</body>
+
+</html>
