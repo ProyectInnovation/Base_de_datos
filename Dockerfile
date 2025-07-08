@@ -1,10 +1,19 @@
-FROM php:8.2-apache
+FROM php:8.1-apache
 
-# Copia tu app al contenedor
+# Actualiza repos y paquetes esenciales para compilación + sqlite dev
+RUN apt-get update && apt-get install -y \
+    libsqlite3-dev \
+    libzip-dev \
+    zip \
+    unzip \
+    libonig-dev \
+    libxml2-dev \
+    && docker-php-ext-install pdo pdo_sqlite
+
+# Copia el proyecto
 COPY . /var/www/html/
 
-# Da permisos de escritura a la carpeta de la base de datos
-RUN chmod -R 775 /var/www/html/srv
+# Permisos
+RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
-# Habilita mod_rewrite de Apache
-RUN a2enmod rewrite
+EXPOSE 80
