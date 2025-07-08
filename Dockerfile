@@ -1,9 +1,9 @@
 FROM php:8.2-apache
 
-# Copia todo el proyecto al contenedor
+# Copia tu app al contenedor
 COPY . /var/www/html/
 
-# Da permisos de escritura al archivo de base de datos
+# Da permisos de escritura a la carpeta de la base de datos
 RUN chmod -R 775 /var/www/html/srv
 
 # Habilita mod_rewrite de Apache
