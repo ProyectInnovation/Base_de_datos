@@ -18,11 +18,11 @@ ejecutaServicio(function () {
     $genero = htmlentities($modelo[JUE_GENERO]);
     $plataforma = htmlentities($modelo[JUE_PLATAFORMA]);
     $render .=
-      "<li>
-     <p>
-      <a href='modifica.html?id=$id'>Videojuego: $nombre</a> - Genero: $genero - Plataforma: $plataforma
-     </p>
-    </li>";
+      "<li class='md-two-line'>
+     <span class='headline'><a href='modifica.html?id=$id'>$nombre</a></span>
+     <span class='supporting'>Género: $genero - Plataforma: $plataforma</span>
+   </li>";
+
   }
 
   devuelveJson(["lista" => ["innerHTML" => $render]]);
